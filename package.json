@@ -1,5 +1,5 @@
 {
-  "name": "emilyeserven/eslint-config",
+  "name": "@emilyeserven/eslint-config",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -8,6 +8,9 @@
     "dev": "concurrently -n \"models,server,ui\" -c \"yellow,blue,green\" \"pnpm --filter=@emstack/types --stream run dev\" \"pnpm --filter=@emstack/middleware --stream run dev\" \"pnpm --filter=@emstack/client --stream run dev\"",
     "lint": "eslint .",
     "lint:fix": "eslint .. --fix"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@eslint/js": "^9.34.0",
@@ -31,7 +34,6 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.41.0"
   },
-  "private": true,
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
     "concurrently": "^9.2.1"
