@@ -1,9 +1,9 @@
 import { defineConfig } from "eslint/config";
 import globals from "globals";
 
-import reactConfig from "./react.js";
-import tanstackQueryConfig from "./tanstackQuery.js";
-import tanstackRouterConfig from "./tanstackRouter.js";
+import reactConfig from "../configs/react.js";
+import tanstackQueryConfig from "../configs/tanstackQuery.js";
+import tanstackRouterConfig from "../configs/tanstackRouter.js";
 
 export default defineConfig([
   {
