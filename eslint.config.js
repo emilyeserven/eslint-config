@@ -1,4 +1,4 @@
-import main from "./main.js";
+import main from "./index.js";
 import {defineConfig} from "eslint/config";
 export default defineConfig([
     {
