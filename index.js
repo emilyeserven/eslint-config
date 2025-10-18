@@ -20,9 +20,11 @@ import {defineConfig, globalIgnores} from "eslint/config";
 
 import stylistic from "@stylistic/eslint-plugin";
 
+import tseslint from "typescript-eslint";
+
 export default defineConfig([
-  globalIgnores(["**/dist/**/*"]),
-  stylistic.configs.recommended,
+tseslint.configs.stylistic,
+stylistic.configs.recommended,
   stylistic.configs.customize({
     semi: true,
   }),

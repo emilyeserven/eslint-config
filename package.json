@@ -1,6 +1,6 @@
 {
   "name": "@emilyeserven/eslint-config",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "type": "module",
   "scripts": {
@@ -30,11 +30,11 @@
     "knip": "^5.65.0",
     "syncpack": "^13.0.4",
     "tailwindcss": "^4.1.12",
-    "typescript-eslint": "^8.41.0",
     "typescript": "^5.5.3"
   },
   "peerDependencies": {
     "eslint": "^9.34.0",
+    "typescript-eslint": "^8.41.0",
     "@stylistic/eslint-plugin": "^5.2.3"
   },
   "packageManager": "pnpm@10.13.1",
