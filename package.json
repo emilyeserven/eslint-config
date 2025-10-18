@@ -1,6 +1,6 @@
 {
   "name": "@emilyeserven/eslint-config",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "type": "module",
   "scripts": {
@@ -15,12 +15,10 @@
   "main": "index.js",
   "devDependencies": {
     "@eslint/js": "^9.34.0",
-    "@stylistic/eslint-plugin": "^5.2.3",
     "@tanstack/eslint-plugin-query": "^5.83.1",
     "@tanstack/eslint-plugin-router": "^1.131.2",
     "@tanstack/router-plugin": "^1.131.28",
     "@typescript-eslint/parser": "^8.41.0",
-    "eslint": "^9.34.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-better-tailwindcss": "^3.7.6",
     "eslint-plugin-import": "^2.32.0",
@@ -32,8 +30,12 @@
     "knip": "^5.65.0",
     "syncpack": "^13.0.4",
     "tailwindcss": "^4.1.12",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^8.41.0"
+    "typescript": "^5.5.3"
+  },
+  "peerDependencies": {
+    "eslint": "^9.34.0",
+    "typescript-eslint": "^8.41.0",
+    "@stylistic/eslint-plugin": "^5.2.3"
   },
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
