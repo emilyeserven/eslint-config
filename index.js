@@ -1,30 +1,10 @@
-/*
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import { globalIgnores } from "eslint/config";
-import storybook from "eslint-plugin-storybook";
-import globals from "globals";
-import tseslint from "typescript-eslint";
-
-import importConfig from "./lintConfigs/importConfig.config.js";
-import jsConfig from "./lintConfigs/jsConfig.config.js";
-import middlewareConfig from "./lintConfigs/middlewareConfig.config.js";
-import reactConfig from "./lintConfigs/reactConfig.config.js";
-import tailwindConfig from "./lintConfigs/tailwindConfig.config.js";
-import tsConfig from "./lintConfigs/tsConfig.config.js";
-import tsQueryConfig from "./lintConfigs/tsQueryConfig.config.js";
-// eslint-disable-next-line import/max-dependencies
-import tsRouterConfig from "./lintConfigs/tsRouterConfig.config.js";
-*/
-// import stylisticConfig from "./lintConfigs/stylisticConfig.config.js";
-import {defineConfig, globalIgnores} from "eslint/config";
-
 import stylistic from "@stylistic/eslint-plugin";
-
+import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
-tseslint.configs.stylistic,
-stylistic.configs.recommended,
+  tseslint.configs.stylistic,
+  stylistic.configs.recommended,
   stylistic.configs.customize({
     semi: true,
   }),

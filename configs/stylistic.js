@@ -16,15 +16,13 @@ import tsQueryConfig from "./lintConfigs/tsQueryConfig.config.js";
 import tsRouterConfig from "./lintConfigs/tsRouterConfig.config.js";
 */
 // import stylisticConfig from "./lintConfigs/stylisticConfig.config.js";
-import {defineConfig, globalIgnores} from "eslint/config";
-
 import stylistic from "@stylistic/eslint-plugin";
-
+import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
-tseslint.configs.stylistic,
-stylistic.configs.recommended,
+  tseslint.configs.stylistic,
+  stylistic.configs.recommended,
   stylistic.configs.customize({
     semi: true,
   }),
