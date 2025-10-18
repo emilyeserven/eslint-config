@@ -1,6 +1,6 @@
 {
   "name": "@emilyeserven/eslint-config",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "type": "module",
   "scripts": {
@@ -12,6 +12,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "main": "index.js",
   "devDependencies": {
     "@eslint/js": "^9.34.0",
     "@stylistic/eslint-plugin": "^5.2.3",
