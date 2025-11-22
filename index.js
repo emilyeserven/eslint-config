@@ -10,8 +10,8 @@ import tsGlobConfig from "./globConfigs/tsGlob.js";
 export default defineConfig([
   globalIgnores(["**/dist/**/*"]),
   ...stylisticConfig,
-  ...tsGlobConfig,
   ...clientGlobConfig,
+  ...tsGlobConfig,
   ...configGlobConfig,
   ...jsonGlobConfig,
   ...middlewareGlobConfig,
