@@ -1,98 +1,100 @@
-// 📦 Import necessary utilities and plugins for the flat configuration
-// NOTE: A large block of imports for other configs (e.g., storybook, react, tailwind) is commented out,
-// indicating this file currently only focuses on basic formatting.
-import stylistic from "@stylistic/eslint-plugin"; // The new plugin for purely stylistic rules
-import { defineConfig, globalIgnores } from "eslint/config"; // Utility for defining the config and global ignores
-import tseslint from "typescript-eslint"; // The package for running ESLint with TypeScript
+/**
+ * @module configs/stylistic
+ * @description Enforces formatting conventions: 2-space indent, double quotes, and strict JSX layout rules.
+ */
+import stylistic from "@stylistic/eslint-plugin";
+import { defineConfig, globalIgnores } from "eslint/config";
+import tseslint from "typescript-eslint";
 
-// 🚀 Export the configuration array
 export default defineConfig([
-  // --- Base Stylistic Configurations ---
-
-  // Applies the TypeScript ESLint plugin's stylistic configuration.
-  // This enables all TypeScript-aware stylistic rules (e.g., requiring consistent type member delimiters)
-  // and turns off any base ESLint rules that would conflict.
+  // TS-aware stylistic rules (e.g., consistent type member delimiters)
   tseslint.configs.stylistic,
 
-  // Applies the recommended set of stylistic rules from the dedicated plugin.
   stylistic.configs.recommended,
 
-  // Further customizes the stylistic rules.
   stylistic.configs.customize({
-    // Explicitly enables or enforces semicolons at the end of statements.
     semi: true,
   }),
 
-  // --- Plugin Registration ---
   {
-    // Explicitly registers the imported 'stylistic' module under the alias '@stylistic'.
     plugins: {
       "@stylistic": stylistic,
     },
   },
 
-  // --- Detailed Rule Overrides and Custom Formatting ---
   {
     rules: {
-      // 📏 Rule: Enforces **2 spaces** for indentation.
+      // Match project standard: 2-space indent
       "@stylistic/indent": ["error", 2],
 
-      // 💬 Rule: Enforces **double quotes** for strings.
+      // Match project standard: double quotes
       "@stylistic/quotes": ["error", "double"],
 
-      // 🧱 Rule: Ensures that **object properties are placed on separate lines** if they span multiple lines.
-      "@stylistic/object-property-newline": ["error", {
-        allowAllPropertiesOnSameLine: false, // Explicitly disallows multiple properties on one line.
-      }],
-
-      // 🖼️ Rule: Enforces **newlines inside object literals and patterns**.
-      "@stylistic/object-curly-newline": ["error", {
-        // Apply to object expressions (e.g., `{ a: 1, b: 2 }`).
-        ObjectExpression: {
-          multiline: true, // Newlines are required if the content spans multiple lines.
-          minProperties: 1, // Forces newlines if there is more than one property.
+      // One property per line for readable diffs
+      "@stylistic/object-property-newline": [
+        "error",
+        {
+          allowAllPropertiesOnSameLine: false,
         },
-        // Apply to object destructuring (e.g., `const { a, b } = obj`).
-        ObjectPattern: {
-          multiline: true,
-          minProperties: 1,
-        },
-      }],
+      ],
 
-      // ⬇️ Rule: Enforces **multiline function arguments** to start on new lines.
+      // Consistent newlines in object literals and destructuring
+      "@stylistic/object-curly-newline": [
+        "error",
+        {
+          ObjectExpression: {
+            multiline: true,
+            minProperties: 1,
+          },
+          ObjectPattern: {
+            multiline: true,
+            minProperties: 1,
+          },
+        },
+      ],
+
+      // Keep multiline function args readable
       "@stylistic/function-paren-newline": ["error", "multiline-arguments"],
 
-      // ⚙️ Rule: Enforces a consistent **brace style** (e.g., placing the opening brace on the same line).
+      // Consistent brace placement (same-line opening brace)
       "@stylistic/brace-style": "error",
 
-      // --- JSX Stylistic Rules ---
+      // --- JSX rules ---
 
-      // 📐 Rule: Enforces **2 spaces** for indentation of props in JSX.
+      // Match 2-space indent for JSX props
       "@stylistic/jsx-indent-props": ["error", 2],
 
-      // 📜 Rule: Forces a **maximum of one prop per line** in JSX elements.
-      "@stylistic/jsx-max-props-per-line": ["error", {
-        maximum: 1,
-      }],
+      // One prop per line for readable diffs
+      "@stylistic/jsx-max-props-per-line": [
+        "error",
+        {
+          maximum: 1,
+        },
+      ],
 
-      // 💬 Rule: Controls expressions allowed per line inside JSX.
-      // Allows non-JSX content (like strings or numbers) but forces JSX expressions onto new lines.
-      "@stylistic/jsx-one-expression-per-line": ["error", {
-        allow: "non-jsx",
-      }],
+      // Allow inline text but force JSX expressions onto new lines
+      "@stylistic/jsx-one-expression-per-line": [
+        "error",
+        {
+          allow: "non-jsx",
+        },
+      ],
 
-      // ⚛️ Rule: Enforces **self-closing tags** for components with no children (e.g., `<Component />`).
+      // Self-close components with no children (e.g., <Component />)
       "@stylistic/jsx-self-closing-comp": "error",
 
-      // 💡 Rule: Enforces **parentheses and newlines** when wrapping multiline JSX structures.
-      "@stylistic/jsx-wrap-multilines": ["error", {
-        declaration: "parens-new-line",
-        assignment: "parens-new-line",
-        return: "parens-new-line",
-        arrow: "parens-new-line",
-        condition: "parens-new-line",
-        logical: "parens-new-line",
-      }],
+      // Wrap multiline JSX in parens with newlines for clarity
+      "@stylistic/jsx-wrap-multilines": [
+        "error",
+        {
+          declaration: "parens-new-line",
+          assignment: "parens-new-line",
+          return: "parens-new-line",
+          arrow: "parens-new-line",
+          condition: "parens-new-line",
+          logical: "parens-new-line",
+        },
+      ],
     },
   },
 ]);

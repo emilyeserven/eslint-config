@@ -1,97 +1,95 @@
-// 📦 Import necessary utilities and plugins for the flat configuration
-import { defineConfig } from "eslint/config"; // Utility for defining the flat config array
-import importPlugin from "eslint-plugin-import"; // The plugin containing import-related rules
+/**
+ * @module configs/import
+ * @description Enforces consistent import ordering, type-import style, and bans CommonJS require syntax.
+ */
+import { defineConfig } from "eslint/config";
+import importPlugin from "eslint-plugin-import";
 
-// 🚀 Export the configuration array
 export default defineConfig([
-  // --- Standard Configurations ---
-
-  // Applies the recommended set of import rules (e.g., no unused imports, etc.)
   importPlugin.flatConfigs.recommended,
-  // Extends the import rules to better handle TypeScript-specific imports/syntax
   importPlugin.flatConfigs.typescript,
-
-  // --- Custom Rule Overrides and Specific Configurations ---
 
   {
     rules: {
-      // 🛠️ Rule: Enforces a consistent and logical order for imports.
-      "import/order": ["error", {
-        // Defines the required order for different import types
-        "groups": ["type", "builtin", "external", "internal", ["parent", "sibling"], "index", "object"],
-        // A specific configuration to group 'react' as a 'builtin' and position it first among builtins.
-        "pathGroups": [
-          {
-            pattern: "react",
-            group: "builtin",
-            position: "before",
+      // Enforce grouped, alphabetized imports with React first
+      "import/order": [
+        "error",
+        {
+          "groups": [
+            "type",
+            "builtin",
+            "external",
+            "internal",
+            ["parent", "sibling"],
+            "index",
+            "object",
+          ],
+          "pathGroups": [
+            {
+              pattern: "react",
+              group: "builtin",
+              position: "before",
+            },
+          ],
+          "pathGroupsExcludedImportTypes": ["type"],
+          "newlines-between": "always",
+          "alphabetize": {
+            order: "asc",
+            caseInsensitive: true,
           },
-        ],
-        // Excludes 'type' imports from being affected by the 'pathGroups' ordering logic.
-        "pathGroupsExcludedImportTypes": ["type"],
-        // Forces a blank line between different import groups.
-        "newlines-between": "always",
-        // Sorts imports within the same group alphabetically (case-insensitive).
-        "alphabetize": {
-          order: "asc",
-          caseInsensitive: true,
         },
-      }],
+      ],
 
-      // 📐 Rule: Enforces using the `import type` syntax for type-only imports at the top level.
-      // E.g., `import type { MyType } from './file'` instead of `import { type MyType } from './file'`
+      // Prefer `import type { X }` over inline `import { type X }` for cleaner tree-shaking
       "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
 
-      // 🚫 Rule: Disallows imports that don't export anything (side-effect imports).
-      // The `allow` option is an exception for CSS imports, which are inherently for side effects (loading styles).
-      "import/no-unassigned-import": ["error", {
-        allow: ["**/*.css"],
-      }],
+      // Imports should actually use what they bring in; CSS is the exception since it just applies styles
+      "import/no-unassigned-import": [
+        "error",
+        {
+          allow: ["**/*.css"],
+        },
+      ],
 
-      // ⬇️ Rule: Ensures there's a newline after the last import statement.
+      // Visually separate imports from application code
       "import/newline-after-import": "error",
 
-      // 📦 Rule: Prevents importing packages using relative paths (e.g., `import '../package-name'`).
+      // Use package names, not relative paths between packages
       "import/no-relative-packages": "error",
 
-      // 🧭 Rule: Prevents using absolute paths on the file system (e.g., `/Users/user/project/file.js`).
+      // Prevent filesystem absolute paths (e.g., /Users/...)
       "import/no-absolute-path": "error",
 
-      // ♊ Rule: Disallows importing the same module multiple times.
+      // Catch accidental duplicate imports of the same module
       "import/no-duplicates": "error",
 
-      // 🔄 Rule: Prevents a module from importing itself, which leads to infinite loops.
+      // Prevent circular self-references
       "import/no-self-import": "error",
 
-      // ❌ Rule: Disallows CommonJS syntax (`require()`, `module.exports`), enforcing ES Modules.
+      // ESM only — no require() or module.exports
       "import/no-commonjs": "error",
 
-      // ⚖️ Rule: Sets a maximum number of dependencies a file can have (10, in this case).
-      // It's a 'warn' severity and ignores imports only used for types.
-      "import/max-dependencies": ["warn", {
-        max: 10,
-        ignoreTypeImports: true,
-      }],
+      // Flag files with too many dependencies as a complexity signal
+      "import/max-dependencies": [
+        "warn",
+        {
+          max: 10,
+          ignoreTypeImports: true,
+        },
+      ],
 
-      // --- Temporarily Disabled Rules ---
-
-      /* Causing errors, turning off for now. */
-      // Disabled: Type errors often arise when using TypeScript or complex environments.
+      /* Causing type-resolution errors; disabled until resolver config is stable */
       "import/default": 0,
       "import/no-named-as-default-member": 0,
-      "import/no-unresolved": 0, // Disabled: Typically handles by the `import/resolver` setting below.
+      "import/no-unresolved": 0,
     },
   },
 
-  // --- Global Settings for the Import Plugin ---
-
   {
     settings: {
-      // Configuration for how ESLint resolves imported modules.
       "import/resolver": {
-        // Tells the import plugin to use TypeScript's path resolution logic (via tsconfig.json).
+        // Use tsconfig paths for module resolution
         typescript: true,
-        // Also enables standard Node.js module resolution.
         node: true,
       },
     },
