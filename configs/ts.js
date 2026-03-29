@@ -31,6 +31,27 @@ export default defineConfig([
         // Other directive comments (like @ts-ignore, @ts-nocheck) are implicitly banned by default
         // when using the recommended and strict configs, reinforcing code quality.
       }],
+
+      // 🛑 Disable the standard JavaScript rule.
+      // This rule must be turned off because it does not understand TypeScript syntax
+      // (like interfaces, types, or enum members) and will report false positives.
+      "no-unused-vars": "off",
+
+      // ✨ Enable the TypeScript-specific rule for unused variables.
+      // This version correctly handles TypeScript features and allows for granular configuration
+      // regarding which variables can be safely ignored.
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          args: "all",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
     },
   },
 ]);

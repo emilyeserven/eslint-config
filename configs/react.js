@@ -61,6 +61,11 @@ export default defineConfig([
       // 🛠️ Rule: Enforces that if a JSX element has multiple props, the first prop starts on a new line.
       // This is a stylistic rule intended to improve readability of multi-line JSX.
       "react/jsx-first-prop-new-line": ["warn", "multiline"],
+
+      // Rule: Needs to have functions allowed in order for TanStack Form to work.
+      "react/no-children-prop": ["error", {
+        allowFunctions: true,
+      }],
     },
   },
 ]);

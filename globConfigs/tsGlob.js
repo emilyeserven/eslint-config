@@ -10,7 +10,7 @@ import { nonClientGlobs } from "../utils/constants.js";
  */
 export default defineConfig([
   {
-    files: ["**/*.{ts}"],
+    files: ["**/*.{ts,tsx}"],
     ignores: nonClientGlobs,
     extends: [...tsConfig],
     languageOptions: {
