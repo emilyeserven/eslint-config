@@ -23,7 +23,7 @@
     "@stylistic/eslint-plugin": "~5.2.3",
     "@tanstack/eslint-plugin-query": "~5.83.1",
     "@tanstack/eslint-plugin-router": "~1.131.2",
-    "@tanstack/router-plugin": "~1.131.28",
+    "@tanstack/router-plugin": "^1.140.0",
     "@typescript-eslint/parser": "~8.41.0",
     "eslint": "~9.34.0",
     "eslint-import-resolver-typescript": "~4.4.4",
