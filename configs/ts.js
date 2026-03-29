@@ -1,45 +1,30 @@
-// 📦 Import necessary utilities and plugins
-import { defineConfig } from "eslint/config"; // Utility for defining the flat config array
-import tseslint from "typescript-eslint"; // The package for running ESLint with TypeScript
+/**
+ * @module configs/ts
+ * @description Extends typescript-eslint recommended + strict rules, with underscore-prefix unused-var pattern.
+ */
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 
-// 🚀 Export the configuration array
 export default defineConfig([
-  // --- Standard Configurations ---
-
-  // 🤝 Applies the standard set of recommended rules for TypeScript.
-  // This includes essential rules like disallowing unused variables and requiring
-  // explicit types for functions in certain places.
   tseslint.configs.recommended,
 
-  // 🚨 Applies an extra set of stricter, more opinionated rules.
-  // This configuration emphasizes code correctness, safety, and readability,
-  // often catching potential runtime issues that the recommended config misses
-  // (e.g., disallowing non-null assertions and forcing stricter interface definitions).
+  // Stricter rules for correctness and safety (e.g., no non-null assertions)
   tseslint.configs.strict,
 
-  // --- Custom Rule Override ---
   {
     rules: {
-      // 🚫 Rule: Controls the usage of TypeScript directive comments (like @ts-ignore, @ts-nocheck).
-      "@typescript-eslint/ban-ts-comment": ["error", {
-        // Sets the severity to 'error', meaning any violation breaks the build.
+      // Allow @ts-expect-error only with a description explaining why
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-expect-error": "allow-with-description",
+        },
+      ],
 
-        // 💬 Exception: Allows the use of '// @ts-expect-error' only if it is accompanied
-        // by a description explaining why the error is expected and suppressed.
-        "ts-expect-error": "allow-with-description",
-
-        // Other directive comments (like @ts-ignore, @ts-nocheck) are implicitly banned by default
-        // when using the recommended and strict configs, reinforcing code quality.
-      }],
-
-      // 🛑 Disable the standard JavaScript rule.
-      // This rule must be turned off because it does not understand TypeScript syntax
-      // (like interfaces, types, or enum members) and will report false positives.
+      // Base rule gives false positives with TS syntax; use @typescript-eslint version below
       "no-unused-vars": "off",
 
-      // ✨ Enable the TypeScript-specific rule for unused variables.
-      // This version correctly handles TypeScript features and allows for granular configuration
-      // regarding which variables can be safely ignored.
+      // Unused vars prefixed with _ are intentional (e.g., destructuring to omit)
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
