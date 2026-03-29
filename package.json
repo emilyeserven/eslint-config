@@ -10,7 +10,7 @@
     "lint:fix": "eslint .. --fix"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "main": "index.js",
   "devDependencies": {
